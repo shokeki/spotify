@@ -12,11 +12,11 @@ DATABASE_LOCATION = "sqlite:///my_played_tracks.sqlite"
 USER_ID = "Azhilay"
 TOKEN = "BQBEEMMvAM5rrEX9yodvfTnwqyNPJMpsfCEHMVKeeiX04et0pRKBbTmR3EnnGe180Ts82iRUX7a8eZP8tViTIvKOYKyx_k8xPjz1YmDV-9ssTS92u4-IQAF2rc3k86qRuWsrQt7c1He715PGGObWUK1_VIDdXlzRHNuoJC5aLUisO1UuG4-W9b_v6o_HQqYADs_B012K"
 
-# Generate your token here:  https://developer.spotify.com/console/get-recently-played/
-# Note: You need a Spotify account (can be easily created for free)
+# Generate token here:  https://developer.spotify.com/console/get-recently-played/
+
 
 def check_if_valid_data(df: pd.DataFrame) -> bool:
-    # Check if dataframe is empty
+    # Check dataframe 
     if df.empty:
         print("No songs downloaded. Finishing execution")
         return False 
@@ -52,12 +52,12 @@ if __name__ == "__main__":
         "Authorization" : "Bearer {token}".format(token=TOKEN)
     }
     
-    # Convert time to Unix timestamp in miliseconds      
+    # Convert time to Unix timestamp  
     today = datetime.datetime.now()
     yesterday = today - datetime.timedelta(days=1)
     yesterday_unix_timestamp = int(yesterday.timestamp()) * 1000
 
-    # Download all songs you've listened to "after yesterday", which means in the last 24 hours      
+    # Download all songs you've listened to after yesterday    
     r = requests.get("https://api.spotify.com/v1/me/player/recently-played?after={time}".format(time=yesterday_unix_timestamp), headers = headers)
 
     data = r.json()
